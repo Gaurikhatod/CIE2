@@ -1,0 +1,49 @@
+@model IEnumerable<CourseEnrollment.Controllers.ApiUser>
+
+@{
+    ViewData["Title"] = "User Directory";
+}
+
+<div class="container py-4">
+    <h1 class="fw-bold mb-2">External User Directory</h1>
+
+    <p class="text-secondary">
+        User information retrieved asynchronously from JSONPlaceholder.
+    </p>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-warning">
+            @ViewBag.Error
+        </div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Company</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Name</td>
+                        <td>@user.Email</td>
+                        <td>@(user.Company?.Name ?? "N/A")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <a asp-controller="Courses"
+       asp-action="Index"
+       class="btn btn-primary">
+        Back to Courses
+    </a>
+</div>

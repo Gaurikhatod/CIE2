@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Enrollment Confirmation";
+}
+
+<div class="container py-5">
+    <div class="card border-0 shadow-sm rounded-4 mx-auto text-center"
+         style="max-width: 650px;">
+        <div class="card-body p-5">
+            <div class="display-3 text-success mb-3">✓</div>
+
+            <h1 class="fw-bold">Enrollment Submitted!</h1>
+
+            <p class="text-secondary mt-3">
+                @TempData["SuccessMessage"]
+            </p>
+
+            <p>
+                Your demonstration enrollment has been processed.
+            </p>
+
+            <a asp-action="Index"
+               class="btn btn-primary mt-3">
+                Explore More Courses
+            </a>
+        </div>
+    </div>
+</div>

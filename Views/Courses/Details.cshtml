@@ -1,0 +1,64 @@
+@model CourseEnrollment.Models.Course
+@using CourseEnrollment.Extensions
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<div class="container py-5">
+    <div class="card border-0 shadow rounded-4 mx-auto"
+         style="max-width: 700px;">
+        <div class="card-body p-4 p-md-5">
+            <span class="badge text-bg-success mb-3">
+                @Model.DiscountPercentage% Discount
+            </span>
+
+            <h1 class="fw-bold">@Model.CourseName</h1>
+
+            <hr />
+
+            <p>
+                <strong>Course ID:</strong>
+                @Model.CourseId
+            </p>
+
+            <p>
+                <strong>Duration:</strong>
+                @Model.Duration
+            </p>
+
+            <p>
+                <strong>Original Fees:</strong>
+                ₹@Model.Fees.ToString("N2")
+            </p>
+
+            <p>
+                <strong>Discount Percentage:</strong>
+                @Model.DiscountPercentage%
+            </p>
+
+            <p>
+                <strong>Discount Amount:</strong>
+                ₹@((Model.Fees -
+                    Model.CalculateFinalFees()).ToString("N2"))
+            </p>
+
+            <h3 class="text-primary fw-bold">
+                Final Fees: ₹@Model.CalculateFinalFees().ToString("N2")
+            </h3>
+
+            <div class="mt-4 d-flex flex-wrap gap-2">
+                <a asp-action="Enroll"
+                   asp-route-id="@Model.CourseId"
+                   class="btn btn-primary">
+                    Enroll Now
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary">
+                    Back to Courses
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

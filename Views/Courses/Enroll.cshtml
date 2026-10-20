@@ -1,0 +1,70 @@
+@model CourseEnrollment.Models.Course
+@using CourseEnrollment.Extensions
+
+@{
+    ViewData["Title"] = "Enroll";
+}
+
+<div class="container py-5">
+    <div class="card border-0 shadow rounded-4 mx-auto"
+         style="max-width: 600px;">
+        <div class="card-body p-4 p-md-5">
+            <h2 class="fw-bold mb-2">Course Enrollment</h2>
+
+            <p class="text-secondary">
+                Complete the form to enroll in your selected course.
+            </p>
+
+            <div class="alert alert-light border">
+                <strong>Course:</strong> @Model.CourseName
+                <br />
+                <strong>Duration:</strong> @Model.Duration
+                <br />
+                <strong>Final Fees:</strong>
+                ₹@Model.CalculateFinalFees().ToString("N2")
+            </div>
+
+            <form asp-controller="Courses"
+                  asp-action="Enroll"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <!-- Hidden field submits the CourseId -->
+                <input type="hidden"
+                       name="courseId"
+                       value="@Model.CourseId" />
+
+                <div class="mb-3">
+                    <label for="studentName"
+                           class="form-label fw-semibold">
+                        Student Name
+                    </label>
+
+                    <input type="text"
+                           id="studentName"
+                           name="studentName"
+                           value="@ViewBag.StudentName"
+                           class="form-control form-control-lg"
+                           maxlength="100"
+                           required />
+
+                    @Html.ValidationMessage(
+                        "studentName",
+                        "",
+                        new { @class = "text-danger" })
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary btn-lg w-100">
+                    Submit Enrollment
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-link w-100 mt-2">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
